@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @Service
 
@@ -34,10 +35,10 @@ public class LocalServiceImpl implements LocalService{
             localdb.setCode(local.getCode());
         }
         if(Objects.nonNull(local.getFloor()) && !"".equalsIgnoreCase(local.getFloor())){
-            localdb.setCode(local.getCode());
+            localdb.setFloor(local.getFloor());
         }
         if(Objects.nonNull(local.getName()) && !"".equalsIgnoreCase(local.getName())){
-            localdb.setCode(local.getCode());
+            localdb.setName(local.getName());
         }
 
 
@@ -50,6 +51,22 @@ public class LocalServiceImpl implements LocalService{
         localRepository.deleteById(id);
 
     }
+
+    @Override
+    public Optional<Local> findLocalByNameWithJPQL(String name) {
+        return LocalRepository.findLocalByNameWithJPQL(name);
+    }
+
+    @Override
+    public Optional<Local> findByName(String name) {
+        return LocalRepository.findByName(name);
+    }
+
+    @Override
+    public Optional<Local> findByNameIgnoreCase(String name) {
+        return Optional.empty();
+    }
+
 
 
 }
