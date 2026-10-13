@@ -1,6 +1,7 @@
 package com.cursoJaax.restfulapi.controller;
 
 import com.cursoJaax.restfulapi.entity.Local;
+import com.cursoJaax.restfulapi.error.LocalNotFoundException;
 import com.cursoJaax.restfulapi.service.LocalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +14,12 @@ public class LocalController {
 
     @Autowired
     LocalService localService;
+
+    @GetMapping("/findLocalById/{id}")
+    Local findLocalById(@PathVariable Long id) throws LocalNotFoundException {
+        return localService.findLocalById(id);
+    }
+
 
     @GetMapping("/findLocalByNameWithJPQL/{name}")
     Optional<Local> findLocalByNameWithJPQL(@PathVariable String name){

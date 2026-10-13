@@ -1,6 +1,7 @@
 package com.cursoJaax.restfulapi.service;
 
 import com.cursoJaax.restfulapi.entity.Local;
+import com.cursoJaax.restfulapi.error.LocalNotFoundException;
 import com.cursoJaax.restfulapi.repository.LocalRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -67,6 +68,15 @@ public class LocalServiceImpl implements LocalService{
         return Optional.empty();
     }
 
+    @Override
+    public Local findLocalById(Long id) throws LocalNotFoundException {
+        Optional <Local> local = localRepository.findById(id);
+        if (!local.isPresent()){
+            throw new LocalNotFoundException("Local is not available");
+        }
+
+        return local.get();
+    }
 
 
 }
